@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SuperTypeConfig(AppConfig):
+class SuperTypesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'super_type'
+    name = 'super_types'
