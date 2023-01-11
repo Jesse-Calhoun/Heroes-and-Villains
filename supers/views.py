@@ -13,8 +13,15 @@ def supers_list(request):
         supers = Super.objects.all()
         if super_type:
             supers = supers.filter(super_type__type=super_type)
-        serializer = SuperSerializer(supers, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = SuperSerializer(supers, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            heroes = supers.filter(super_type__type='hero')
+            heroes_serializer = SuperSerializer(heroes, many=True)
+            villains = supers.filter(super_type__type='villain')
+            villains_serializer = SuperSerializer(villains, many=True)
+            custom_response = {'heroes' : heroes_serializer.data,'villains' : villains_serializer.data}
+            return Response(custom_response)
     elif request.method == 'POST':
         serializer = SuperSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
