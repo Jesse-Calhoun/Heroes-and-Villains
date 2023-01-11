@@ -18,4 +18,9 @@ def supers_list(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
+@api_view(['GET'])
+def super_detail(request, pk):
+    super = get_object_or_404(Super, pk=pk)
+    if request.method == 'GET':
+        serializer = SuperSerializer(super)
+        return Response(serializer.data, status=status.HTTP_200_OK)
